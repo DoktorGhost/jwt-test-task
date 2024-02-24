@@ -17,13 +17,11 @@ func ConnectDB() (*mongo.Client, error) {
 		return nil, err
 	}
 
-	/*
-		username := os.Getenv("MONGO_INITDB_ROOT_USERNAME")
-		password := os.Getenv("MONGO_INITDB_ROOT_PASSWORD")
-		uri := "mongodb://" + username + ":" + password + "@localhost:27017"
-	*/
+	username := os.Getenv("MONGO_INITDB_ROOT_USERNAME")
+	password := os.Getenv("MONGO_INITDB_ROOT_PASSWORD")
+	uri := "mongodb://" + username + ":" + password + "@localhost:27017"
 
-	uri := os.Getenv("URL_MONGO")
+	//uri := os.Getenv("URL_MONGO")
 
 	client, err := mongo.Connect(context.Background(), options.Client().ApplyURI(uri))
 	if err != nil {

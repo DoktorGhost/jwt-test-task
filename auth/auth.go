@@ -49,7 +49,7 @@ func CreateToken(guid string, client *mongo.Client, collection *mongo.Collection
 		return nil, err
 	}
 
-	// Сохраняем хэшированный Refresh токен в базе данных
+	// Сохранение хэша Refresh токена в базе данных
 	err = updateRefresToken(guid, hashedToken, collection)
 	if err != nil {
 		log.Printf("Ошибка при записи refresh токена в бд: %v", err)
@@ -113,6 +113,6 @@ func updateRefresToken(guid string, refreshToken []byte, collection *mongo.Colle
 		return err
 	}
 
-	log.Println("Refrsh токены успешно обновлен в базе данных")
+	log.Println("Refrsh токен успешно обновлен в базе данных")
 	return nil
 }

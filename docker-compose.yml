@@ -8,4 +8,6 @@ services:
     env_file:
       - .env
     ports:
-      - "27017:27017"
+      - "${MONGO_PORT}:${MONGO_PORT}"
+    volumes:
+      - ./init-mongo.js:/docker-entrypoint-initdb.d/init-mongo.js:ro

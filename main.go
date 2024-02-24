@@ -37,14 +37,13 @@ func main() {
 		tokenPair, err := auth.CreateToken(guid, client, collection)
 
 		if err != nil {
-			http.Error(w, "Ошибка при создании токенов", http.StatusInternalServerError)
-			//w.WriteHeader(http.StatusInternalServerError)
+			http.Error(w, "Ошибка при создании токенов", http.StatusUnauthorized)
 			return
 		}
 
 		json.NewEncoder(w).Encode(tokenPair)
 
-	}).Methods("GET")
+	}).Methods("POST")
 
 	// Маршрут для обновления пары токенов по Refresh токену.
 	router.HandleFunc("/auth/refresh/{guid}/{refreshToken}", func(w http.ResponseWriter, r *http.Request) {
@@ -54,7 +53,6 @@ func main() {
 
 		tokenPair, err := auth.RefreshToken(guid, refreshToken, collection, client)
 		if err != nil {
-			//w.WriteHeader(http.StatusInternalServerError)
 			http.Error(w, "Ошибка при обновлении токенов", http.StatusInternalServerError)
 			return
 		}
