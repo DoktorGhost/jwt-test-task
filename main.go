@@ -49,6 +49,7 @@ func main() {
 			return
 		}
 
+		w.Header().Set("Content-Type", "application/json; charset=UTF-8")
 		json.NewEncoder(w).Encode(tokenPair)
 
 	}).Methods("POST")
@@ -69,6 +70,7 @@ func main() {
 			return
 		}
 
+		w.Header().Set("Content-Type", "application/json; charset=UTF-8")
 		json.NewEncoder(w).Encode(tokenPair)
 
 	}).Methods("POST")
