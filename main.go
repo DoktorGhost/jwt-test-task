@@ -12,6 +12,10 @@ import (
 	"github.com/gorilla/mux"
 )
 
+type ErrorResponse struct {
+	Error string `json:"error"`
+}
+
 func main() {
 
 	client, err := database.ConnectDB()
@@ -37,7 +41,11 @@ func main() {
 		tokenPair, err := auth.CreateToken(guid, client, collection)
 
 		if err != nil {
-			http.Error(w, "Ошибка при создании токенов", http.StatusUnauthorized)
+			errorResponse := ErrorResponse{Error: "Ошибка при создании токенов"}
+			jsonResponse, _ := json.Marshal(errorResponse)
+			w.Header().Set("Content-Type", "application/json; charset=UTF-8")
+			w.WriteHeader(http.StatusUnauthorized)
+			w.Write(jsonResponse)
 			return
 		}
 
@@ -53,7 +61,11 @@ func main() {
 
 		tokenPair, err := auth.RefreshToken(guid, refreshToken, collection, client)
 		if err != nil {
-			http.Error(w, "Ошибка при обновлении токенов", http.StatusInternalServerError)
+			errorResponse := ErrorResponse{Error: "Ошибка при обновлении токенов"}
+			jsonResponse, _ := json.Marshal(errorResponse)
+			w.Header().Set("Content-Type", "application/json; charset=UTF-8")
+			w.WriteHeader(http.StatusUnauthorized)
+			w.Write(jsonResponse)
 			return
 		}
 
