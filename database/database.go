@@ -19,7 +19,7 @@ func ConnectDB() (*mongo.Client, error) {
 
 	username := os.Getenv("MONGO_INITDB_ROOT_USERNAME")
 	password := os.Getenv("MONGO_INITDB_ROOT_PASSWORD")
-	uri := "mongodb://" + username + ":" + password + "@localhost:27017"
+	uri := "mongodb://" + username + ":" + password + "@mongo:27017"
 
 	//uri := os.Getenv("URL_MONGO")
 

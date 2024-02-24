@@ -11,3 +11,12 @@ services:
       - "${MONGO_PORT}:${MONGO_PORT}"
     volumes:
       - ./init-mongo.js:/docker-entrypoint-initdb.d/init-mongo.js:ro
+
+  goapp:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    restart: always
+    ports:
+      - "8080:8080"
+    
